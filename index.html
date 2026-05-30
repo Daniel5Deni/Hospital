@@ -1482,8 +1482,8 @@ const emergencyQueue = [
 const chatMessages = [
   { sender:"Dr. Martínez", role:"Doctor", msg:"Buenos días. Inicio de guardia. UCI 3 y 4 requieren atención prioritaria.", time:"08:00", own:false },
   { sender:"Enf. García", role:"Enfermera", msg:"Confirmado. Cambio de turno completado. Signos vitales UCI actualizados.", time:"08:05", own:false },
-  { sender:"Dir. Rodríguez", role:"Director", msg:"Reunión de coordinación a las 12:00 en sala de juntas. Asistencia obligatoria.", time:"08:15", own:false },
-  { sender:"Dr. López", role:"Cardiólogo", msg:"Cateterismo de María Rodríguez confirmado para 16:00. Sala 2 reservada.", time:"08:30", own:false },
+  { sender:"Dir. Daniel", role:"Director", msg:"Reunión de coordinación a las 12:00 en sala de juntas. Asistencia obligatoria.", time:"08:15", own:false },
+  { sender:"Dra. Braum", role:"Cardiólogo", msg:"Cateterismo de María Rodríguez confirmado para 16:00. Sala 2 reservada.", time:"08:30", own:false },
   { sender:"Enf. García", role:"Enfermera", msg:"Medicamentos UCI dispensados. Stock de aminas vasoactivas OK.", time:"08:45", own:false },
 ];
 
@@ -1491,11 +1491,11 @@ const staff = [
   { name:"Dr. Martínez", role:"Médico Emergencias", status:"En turno", icon:"👨‍⚕️" },
   { name:"Dra. Sánchez", role:"Médico UCI", status:"En turno", icon:"👩‍⚕️" },
   { name:"Enf. García", role:"Enfermera Jefe", status:"En turno", icon:"👩‍⚕️" },
-  { name:"Dr. López", role:"Cardiólogo", status:"En turno", icon:"👨‍⚕️" },
-  { name:"Dr. Torres", role:"Cirujano", status:"En cirugía", icon:"🔬" },
-  { name:"Dir. Rodríguez", role:"Director Médico", status:"Disponible", icon:"👔" },
-  { name:"Enf. Jiménez", role:"Enfermero UCI", status:"En turno", icon:"🧑‍⚕️" },
-  { name:"Dr. Herrera", role:"Traumatólogo", status:"Descansando", icon:"😴" },
+  { name:"Dra. Braum", role:"Cardiólogo", status:"En turno", icon:"👨‍⚕️" },
+  { name:"Dr. Shaun Morphy", role:"Cirujano", status:"En cirugía", icon:"🔬" },
+  { name:"Dir. Daniel", role:"Director Médico", status:"Disponible", icon:"👔" },
+  { name:"Enf. Marisol", role:"Enfermero UCI", status:"En turno", icon:"🧑‍⚕️" },
+  { name:"Dr. Melendez", role:"Traumatólogo", status:"Descansando", icon:"😴" },
 ];
 
 const mapRooms = [
@@ -1513,7 +1513,7 @@ const mapRooms = [
 const users = [
   { role:"DOCTOR", name:"Dr. Martínez" },
   { role:"ENFERMERO", name:"Enf. García" },
-  { role:"DIRECTOR", name:"Dir. Rodríguez" },
+  { role:"DIRECTOR", name:"Dir. Daniel" },
   { role:"CARDIÓLOGO", name:"Dr. López" },
 ];
 let currentUser = 0;
