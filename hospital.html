@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital San José Bonaventure — Dr. Daniel</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050a12;--bg2:#080f1c;--bg3:#0c1628;--panel:#0a1422;--panel2:#0d1a2e;--border:#1a3050;--border2:#0f2035;--teal:#00c8d4;--teal2:#007a85;--navy:#1a3a6b;--red:#ff2d4a;--red2:#c01530;--yellow:#ffd600;--green:#00e676;--green2:#00a854;--white:#e8f4ff;--muted:#4a6d8c;--text:#b8d4f0;--glow:0 0 20px rgba(0,200,212,0.3);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,200,212,0.012) 2px,rgba(0,200,212,0.012) 4px);pointer-events:none;z-index:9997;}
+header{background:linear-gradient(90deg,var(--bg3),#0a1830,var(--bg3));border-bottom:1px solid var(--teal2);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 30px rgba(0,200,212,0.15);flex-wrap:wrap;gap:6px;}
+.hlogo{display:flex;align-items:center;gap:10px;}
+.hlogo svg{width:36px;height:36px;flex-shrink:0;}
+.hmain{font-family:'Orbitron',monospace;font-size:11px;font-weight:900;color:var(--teal);letter-spacing:2px;text-shadow:var(--glow);}
+.hsub{font-size:9px;color:var(--muted);letter-spacing:1px;font-family:'Share Tech Mono',monospace;}
+.hcenter{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.shift-b{padding:4px 10px;border-radius:20px;font-size:10px;font-family:'Share Tech Mono',monospace;font-weight:700;letter-spacing:1px;}
+.shift-day{background:rgba(255,214,0,0.15);color:var(--yellow);border:1px solid var(--yellow);}
+.shift-night{background:rgba(0,200,212,0.15);color:var(--teal);border:1px solid var(--teal);}
+.wx-b{padding:4px 10px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.07);border:1px solid var(--border);}
+.hright{display:flex;align-items:center;gap:10px;}
+.clk{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;color:var(--white);}
+.ldot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pg 1.5s infinite;box-shadow:0 0 8px var(--green);}
+@keyframes pg{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
+.upill{display:flex;align-items:center;gap:8px;background:rgba(0,200,212,0.1);border:1px solid var(--teal2);border-radius:6px;padding:5px 12px;}
+.urole{font-size:9px;color:var(--teal);font-family:'Share Tech Mono',monospace;}
+.uname{font-size:12px;color:var(--white);font-weight:700;}
+.repb{font-family:'Orbitron',monospace;font-size:10px;color:var(--yellow);}
+.nb-bar{display:flex;background:var(--bg3);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.nb-bar::-webkit-scrollbar{display:none;}
+.nb{padding:9px 13px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Exo 2',sans-serif;font-size:11px;font-weight:600;letter-spacing:.5px;cursor:pointer;white-space:nowrap;transition:all .2s;text-transform:uppercase;}
+.nb:hover{color:var(--text);}
+.nb.active{color:var(--teal);border-bottom-color:var(--teal);background:rgba(0,200,212,0.05);}
+.wrap{padding:12px;max-width:1600px;margin:0 auto;}
+.sec{display:none;}.sec.active{display:block;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
+.card-hdr{padding:9px 14px;background:var(--panel2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.ct{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--teal);letter-spacing:2px;text-transform:uppercase;}
+.cb{padding:14px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px;}
+.gm{display:grid;grid-template-columns:2fr 1fr;gap:10px;}
+.sc{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px;position:relative;overflow:hidden;}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent);}
+.sc.red::before{background:linear-gradient(90deg,var(--red),transparent);}
+.sc.green::before{background:linear-gradient(90deg,var(--green),transparent);}
+.sc.yellow::before{background:linear-gradient(90deg,var(--yellow),transparent);}
+.scl{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-family:'Share Tech Mono',monospace;margin-bottom:6px;}
+.scv{font-family:'Orbitron',monospace;font-size:28px;font-weight:900;color:var(--white);line-height:1;}
+.scs{font-size:10px;color:var(--muted);margin-top:3px;}
+.sci{font-size:26px;position:absolute;right:14px;top:50%;transform:translateY(-50%);opacity:0.25;}
+.sb{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.sb.critico{background:rgba(255,45,74,0.15);color:var(--red);border:1px solid rgba(255,45,74,0.3);animation:br 1.5s infinite;}
+.sb.observacion{background:rgba(255,214,0,0.15);color:var(--yellow);border:1px solid rgba(255,214,0,0.3);}
+.sb.estable{background:rgba(0,230,118,0.15);color:var(--green);border:1px solid rgba(0,230,118,0.3);}
+@keyframes br{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.tbl{width:100%;border-collapse:collapse;font-size:11px;}
+.tbl th{padding:7px 10px;text-align:left;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border);}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--border2);vertical-align:middle;}
+.tbl tr:hover td{background:rgba(0,200,212,0.04);cursor:pointer;}
+.btn{padding:5px 12px;border-radius:5px;font-family:'Exo 2',sans-serif;font-size:10px;font-weight:600;cursor:pointer;border:1px solid;transition:all .2s;}
+.bt{background:rgba(0,200,212,0.15);border-color:var(--teal2);color:var(--teal);}
+.bt:hover{background:rgba(0,200,212,0.3);}
+.br{background:rgba(255,45,74,0.15);border-color:var(--red2);color:var(--red);}
+.bg{background:rgba(0,230,118,0.15);border-color:var(--green2);color:var(--green);}
+.by{background:rgba(255,214,0,0.15);border-color:var(--yellow);color:var(--yellow);}
+.pb{background:var(--border2);border-radius:4px;height:5px;overflow:hidden;margin-top:3px;}
+.pf{height:100%;border-radius:4px;transition:width 1s;}
+.pf.t{background:var(--teal)}.pf.r{background:var(--red)}.pf.g{background:var(--green)}.pf.y{background:var(--yellow)}
+.ci{background:var(--panel);border-radius:6px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--border);cursor:pointer;transition:all .2s;animation:slin .4s ease;}
+.ci:hover{transform:translateX(4px);}
+.ci.p1{border-left-color:var(--red);background:rgba(255,45,74,0.05);}
+.ci.p2{border-left-color:var(--yellow);background:rgba(255,214,0,0.04);}
+.ci.p3{border-left-color:var(--teal);background:rgba(0,200,212,0.04);}
+.ci.p4{border-left-color:var(--muted);}
+@keyframes slin{from{transform:translateX(-16px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+.mo{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:16px;}
+.mo.active{display:flex;}
+.mbox{background:var(--bg3);border:1px solid var(--teal2);border-radius:12px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 0 60px rgba(0,200,212,0.25);}
+.mhdr{background:var(--panel2);padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.mtitle{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:2px;}
+.mbody{padding:18px;}
+.dopt{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:8px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:10px;}
+.dopt:hover{border-color:var(--teal);background:rgba(0,200,212,0.08);}
+.donum{font-family:'Orbitron',monospace;font-size:16px;font-weight:900;color:var(--teal);min-width:24px;}
+.dotxt{font-size:12px;color:var(--white);line-height:1.5;}
+.dorisk{font-size:10px;color:var(--muted);margin-top:3px;}
+#cbo{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9998;align-items:center;justify-content:center;flex-direction:column;background:rgba(0,0,100,0.93);animation:cbf .6s infinite;}
+#cbo.active{display:flex;}
+@keyframes cbf{0%,100%{background:rgba(0,0,110,0.93);}50%{background:rgba(0,0,180,0.96);}}
+.cbmsg{font-family:'Orbitron',monospace;font-size:clamp(16px,4vw,32px);font-weight:900;color:#fff;letter-spacing:4px;text-align:center;animation:br .5s infinite;padding:0 20px;}
+.cbsub{font-family:'Share Tech Mono',monospace;font-size:clamp(11px,2vw,16px);color:#88aaff;margin-top:14px;text-align:center;padding:0 20px;letter-spacing:2px;}
+.cbt{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:14px 20px;margin-top:20px;min-width:280px;}
+.cbm{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;font-family:'Share Tech Mono',monospace;}
+.cbdis{margin-top:20px;padding:10px 28px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:6px;color:#fff;font-family:'Orbitron',monospace;font-size:11px;cursor:pointer;letter-spacing:2px;}
+.nwrap{position:fixed;top:66px;right:12px;z-index:400;display:flex;flex-direction:column;gap:6px;max-width:300px;}
+.notif{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:6px;padding:9px 12px;font-size:11px;animation:nin .3s ease,nou .3s ease 4.7s forwards;box-shadow:0 4px 20px rgba(0,0,0,0.4);cursor:pointer;}
+.notif.urgent{border-left-color:var(--red);}
+.notif.warn{border-left-color:var(--yellow);}
+.notif.success{border-left-color:var(--green);}
+.ntit{font-weight:700;color:var(--white);margin-bottom:2px;}
+.nmsg{color:var(--muted);}
+@keyframes nin{from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes nou{from{transform:translateX(0);opacity:1;}to{transform:translateX(100%);opacity:0;}}
+.cms{height:320px;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.cmsg{display:flex;gap:8px;animation:slin .3s ease;}
+.cmsg.dan{flex-direction:row-reverse;}
+.cav{width:30px;height:30px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;border:1px solid var(--border);}
+.cbub{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;max-width:78%;}
+.cmsg.dan .cbub{background:rgba(0,200,212,0.1);border-color:var(--teal2);}
+.csen{font-size:9px;color:var(--teal);margin-bottom:2px;font-family:'Share Tech Mono',monospace;}
+.ctxt{font-size:11px;color:var(--text);line-height:1.5;}
+.ctm{font-size:9px;color:var(--muted);margin-top:3px;}
+.cro{display:flex;gap:6px;padding:8px 10px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.co{padding:5px 10px;background:rgba(0,200,212,0.1);border:1px solid var(--teal2);border-radius:4px;color:var(--teal);font-size:10px;cursor:pointer;font-family:'Share Tech Mono',monospace;transition:all .2s;}
+.co:hover{background:rgba(0,200,212,0.25);}
+.cir{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);}
+.cin{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:7px 11px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:11px;outline:none;}
+.cin:focus{border-color:var(--teal);}
+.csend{background:var(--teal2);border:none;border-radius:6px;padding:7px 13px;color:#fff;cursor:pointer;font-size:13px;}
+.bgd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.bcard{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px;text-align:center;}
+.btype{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;color:var(--red);}
+.bunits{font-size:20px;font-weight:700;color:var(--white);margin:4px 0;}
+.ach-g{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.ach{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;transition:all .3s;}
+.ach.un{border-color:var(--yellow);background:rgba(255,214,0,0.05);}
+.ach.lk{opacity:0.4;}
+.ai{font-size:28px;margin-bottom:6px;}
+.an{font-size:11px;font-weight:700;color:var(--white);margin-bottom:2px;}
+.ad{font-size:9px;color:var(--muted);}
+.adate{font-size:9px;color:var(--yellow);margin-top:4px;font-family:'Share Tech Mono',monospace;}
+.ni{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;}
+.nt{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--teal);min-width:45px;margin-top:2px;}
+.ntx{font-size:11px;color:var(--text);line-height:1.5;}
+.stg{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:1px;font-family:'Share Tech Mono',monospace;margin-bottom:8px;}
+.stg.triste{background:rgba(255,45,74,0.15);color:var(--red);}
+.stg.feliz{background:rgba(0,230,118,0.15);color:var(--green);}
+.stg.normal{background:rgba(0,200,212,0.15);color:var(--teal);}
+.scard{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;}
+.sname{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.sdet{font-size:11px;color:var(--muted);line-height:1.7;}
+.sr{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--panel);border:1px solid var(--border);border-radius:6px;margin-bottom:6px;transition:all .2s;}
+.sr:hover{border-color:var(--teal);}
+.sav{width:34px;height:34px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.sn{font-size:12px;font-weight:600;color:var(--white);}
+.sa{font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+.sdd{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sd-a{background:var(--green);box-shadow:0 0 6px var(--green);}
+.sd-b{background:var(--yellow);box-shadow:0 0 6px var(--yellow);}
+.sd-r{background:var(--muted);}
+.vc{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px;overflow:hidden;}
+canvas.wave{width:100%;height:55px;display:block;}
+.fb{display:flex;justify-content:space-between;align-items:center;}
+.fr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.mb8{margin-bottom:8px;}.mb12{margin-bottom:12px;}
+.stitle{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--teal);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:1px;font-family:'Share Tech Mono',monospace;}
+.tag-r{background:rgba(255,45,74,0.15);color:var(--red);}
+.tag-y{background:rgba(255,214,0,0.15);color:var(--yellow);}
+.tag-g{background:rgba(0,230,118,0.15);color:var(--green);}
+.tag-t{background:rgba(0,200,212,0.15);color:var(--teal);}
+.tag-m{background:rgba(74,109,140,0.2);color:var(--muted);}
+.bc{background:rgba(0,230,118,0.06);border:1px solid rgba(0,230,118,0.25);border-radius:8px;padding:12px;margin-bottom:8px;}
+.abar{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.adots{display:flex;gap:5px;}
+.adot{width:11px;height:11px;border-radius:50%;background:var(--border);}
+.adot.v{background:var(--green);box-shadow:0 0 6px var(--green);}
+.adot.a{background:var(--yellow);box-shadow:0 0 6px var(--yellow);}
+.adot.r{background:var(--red);box-shadow:0 0 6px var(--red);animation:pg .8s infinite;}
+.heli{font-size:40px;animation:hh 2s ease-in-out infinite;}
+@keyframes hh{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+.sandboxbtn{background:rgba(255,214,0,0.1);border:1px solid var(--yellow);color:var(--yellow);padding:10px 16px;border-radius:6px;font-family:'Orbitron',monospace;font-size:10px;cursor:pointer;letter-spacing:1px;transition:all .2s;width:100%;margin-bottom:8px;text-align:left;}
+.sandboxbtn:hover{background:rgba(255,214,0,0.25);}
+@media(max-width:768px){.g4{grid-template-columns:repeat(2,1fr);}.g3{grid-template-columns:1fr 1fr;}.gm{grid-template-columns:1fr;}.bgd{grid-template-columns:repeat(4,1fr);}.ach-g{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.g4,.g3,.g2{grid-template-columns:1fr 1fr;}.gm{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hlogo">
+    <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><rect x="13" y="2" width="10" height="32" rx="2" fill="#1a3a6b"/><rect x="2" y="13" width="32" height="10" rx="2" fill="#1a3a6b"/><path d="M18 7 C13 12,13 16,18 20 C23 24,23 28,18 34" stroke="#00c8d4" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
+    <div><div class="hmain">HOSPITAL SAN JOSÉ BONAVENTURE</div><div class="hsub">SISTEMA CENTRAL — DR. DANIEL, ADMINISTRADOR GENERAL</div></div>
+  </div>
+  <div class="hcenter">
+    <span class="shift-b shift-day" id="shift-badge">☀️ TURNO DIURNO</span>
+    <span class="wx-b" id="wx-badge">☀️ Despejado</span>
+    <span class="repb" id="rep-disp">⭐ Reputación: 94/100</span>
+  </div>
+  <div class="hright">
+    <div style="display:flex;align-items:center;gap:5px;"><div class="ldot"></div><span style="font-size:9px;font-family:'Share Tech Mono',monospace;color:var(--green);">EN VIVO</span></div>
+    <div><div class="clk" id="clk">--:--:--</div><div style="font-size:9px;color:var(--muted);font-family:'Share Tech Mono',monospace;" id="ddisp">---</div></div>
+    <div class="upill"><div><div class="urole">ADMINISTRADOR GENERAL</div><div class="uname">👑 Dr. Daniel</div></div></div>
+  </div>
+</header>
+<div class="nb-bar">
+  <button class="nb active" onclick="showSec('dashboard',this)">⊞ Dashboard</button>
+  <button class="nb" onclick="showSec('crisis',this)">🚨 Crisis</button>
+  <button class="nb" onclick="showSec('pacientes',this)">👥 Pacientes</button>
+  <button class="nb" onclick="showSec('personal',this)">👨‍⚕️ Personal</button>
+  <button class="nb" onclick="showSec('ambulancias',this)">🚑 Ambulancias</button>
+  <button class="nb" onclick="showSec('maternidad',this)">👶 Maternidad</button>
+  <button class="nb" onclick="showSec('sangre',this)">🩸 Sangre</button>
+  <button class="nb" onclick="showSec('monitores',this)">📈 Monitores</button>
+  <button class="nb" onclick="showSec('aliados',this)">🏥 Aliados</button>
+  <button class="nb" onclick="showSec('logros',this)">🎖️ Logros</button>
+  <button class="nb" onclick="showSec('periodico',this)">📰 Periódico</button>
+  <button class="nb" onclick="showSec('chat',this)">💬 Chat</button>
+  <button class="nb" onclick="showSec('sandbox',this)">🛠️ Sandbox</button>
+</div>
+<div class="wrap">
+<!-- DASHBOARD -->
+<div id="sec-dashboard" class="sec active">
+  <div class="abar">
+    <div class="adots"><div class="adot" id="adot-v"></div><div class="adot" id="adot-a"></div><div class="adot" id="adot-r"></div></div>
+    <div><div style="font-size:9px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:1px;">NIVEL DE ALERTA</div><div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;" id="alt-txt">⚠ ALERTA AMARILLA</div></div>
+    <div style="flex:1;"></div>
+    <span id="emp-mes-h" style="font-size:10px;color:var(--yellow);">🏆 Empleado del mes: Dr. Shaun Murphy</span>
+  </div>
+  <div class="g4">
+    <div class="sc"><div class="scl">Pacientes Activos</div><div class="scv" id="d-pac">0</div><div class="scs">En el hospital</div><div class="sci">👥</div></div>
+    <div class="sc red"><div class="scl">Casos Críticos</div><div class="scv" style="color:var(--red)" id="d-crit">0</div><div class="scs">Atención inmediata</div><div class="sci">🔴</div></div>
+    <div class="sc green"><div class="scl">Camas Libres</div><div class="scv" style="color:var(--green)" id="d-beds">0</div><div class="scs">de 120 totales</div><div class="sci">🛏️</div></div>
+    <div class="sc yellow"><div class="scl">Ambulancias</div><div class="scv" style="color:var(--teal)" id="d-amb">4/6</div><div class="scs">en servicio</div><div class="sci">🚑</div></div>
+  </div>
+  <div class="gm">
+    <div>
+      <div class="card mb12"><div class="card-hdr"><span class="ct">⚡ Casos Críticos</span><span style="font-size:9px;color:var(--red);">TIEMPO REAL</span></div><div style="padding:0;overflow-x:auto;"><table class="tbl"><thead><tr><th>Paciente</th><th>Diagnóstico</th><th>Estado</th><th>Sala</th><th></th></tr></thead><tbody id="dash-ct"></tbody></table></div></div>
+      <div class="card"><div class="card-hdr"><span class="ct">📊 Ocupación</span></div><div class="cb" id="occ-bars"></div></div>
+    </div>
+    <div>
+      <div class="card mb12"><div class="card-hdr"><span class="ct">🚑 Ambulancias</span></div><div class="cb" style="padding:8px;" id="dash-ambs"></div></div>
+      <div class="card mb12"><div class="card-hdr"><span class="ct">🩸 Sangre Crítica</span></div><div class="cb" style="padding:8px;" id="dash-blood"></div></div>
+      <div class="card"><div class="card-hdr"><span class="ct">👶 Nacimientos</span></div><div class="cb" style="padding:8px;" id="dash-births"></div></div>
+    </div>
+  </div>
+</div>
+<!-- CRISIS -->
+<div id="sec-crisis" class="sec">
+  <div class="fb mb12"><div class="stitle" style="margin-bottom:0;">🚨 PANTALLA DE CRISIS</div><div style="font-size:10px;color:var(--muted);">Selecciona un evento para gestionar</div></div>
+  <div class="gm"><div id="crisis-list"></div><div>
+    <div class="card mb12"><div class="card-hdr"><span class="ct">📋 Registro de Acciones</span></div><div class="cb" style="padding:8px;max-height:300px;overflow-y:auto;" id="alog"></div></div>
+    <div class="card"><div class="card-hdr"><span class="ct">📊 Hoy</span></div><div class="cb"><div class="g2"><div style="text-align:center;"><div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--teal);" id="st-ingr">0</div><div style="font-size:9px;color:var(--muted);">INGRESOS</div></div><div style="text-align:center;"><div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--green);" id="st-alta">0</div><div style="font-size:9px;color:var(--muted);">ALTAS</div></div><div style="text-align:center;"><div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--yellow);" id="st-cir">0</div><div style="font-size:9px;color:var(--muted);">CIRUGÍAS</div></div><div style="text-align:center;"><div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--red);" id="st-nac">0</div><div style="font-size:9px;color:var(--muted);">NACIMIENTOS</div></div></div></div></div>
+  </div></div>
+</div>
+<!-- PACIENTES -->
+<div id="sec-pacientes" class="sec">
+  <div class="stitle">👥 GESTIÓN DE PACIENTES</div>
+  <div class="card"><div class="card-hdr"><span class="ct">Lista de Pacientes</span><span style="font-size:9px;color:var(--muted);">Total: <span id="total-pac" style="color:var(--white);">0</span></span></div><div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Diagnóstico</th><th>Estado</th><th>Sala</th><th>Doctor</th><th>😊</th><th></th></tr></thead><tbody id="full-pact"></tbody></table></div></div>
+</div>
+<!-- PERSONAL -->
+<div id="sec-personal" class="sec">
+  <div class="stitle">👨‍⚕️ GESTIÓN DE PERSONAL</div>
+  <div class="gm"><div id="staff-full"></div><div>
+    <div class="card mb12"><div class="card-hdr"><span class="ct">🏆 Empleado del Mes</span></div><div class="cb" id="emp-panel"></div></div>
+    <div class="card"><div class="card-hdr"><span class="ct">📊 Por Área</span></div><div class="cb" id="staff-areas"></div></div>
+  </div></div>
+</div>
+<!-- AMBULANCIAS -->
+<div id="sec-ambulancias" class="sec"><div class="stitle">🚑 AMBULANCIAS</div><div class="g2" id="amb-full"></div></div>
+<!-- MATERNIDAD -->
+<div id="sec-maternidad" class="sec">
+  <div class="stitle">👶 MATERNIDAD</div>
+  <div class="gm"><div>
+    <div class="card mb12"><div class="card-hdr"><span class="ct">🍼 Nacimientos</span><span style="font-size:9px;color:var(--green);" id="birth-c">0</span></div><div class="cb" style="padding:8px;" id="birth-list"></div></div>
+  </div><div>
+    <div class="card mb12"><div class="card-hdr"><span class="ct">📊 Estadísticas</span></div><div class="cb"><div class="fb mb8"><span style="font-size:11px;">Normales</span><span id="bn" style="color:var(--green)">0</span></div><div class="fb mb8"><span style="font-size:11px;">Emergencias</span><span id="be" style="color:var(--red)">0</span></div><div class="fb"><span style="font-size:11px;">Bebés sanos</span><span id="bh" style="color:var(--teal)">0</span></div></div></div>
+    <div class="card"><div class="card-hdr"><span class="ct">👩‍⚕️ Equipo</span></div><div class="cb" style="font-size:11px;line-height:2.2;"><div>🩺 Dra. Elena Mendoza</div><div>👩‍⚕️ Enf. Patricia Lima</div><div>👶 Dr. Carlos Nieto</div></div></div>
+  </div></div>
+</div>
+<!-- SANGRE -->
+<div id="sec-sangre" class="sec"><div class="stitle">🩸 BANCO DE SANGRE</div><div class="bgd" id="blood-g"></div><div class="card"><div class="card-hdr"><span class="ct">Transfusiones Hoy</span></div><div class="cb" style="padding:8px;" id="tlog"></div></div></div>
+<!-- MONITORES -->
+<div id="sec-monitores" class="sec">
+  <div class="stitle">📈 MONITORES</div>
+  <div class="mb12"><label style="font-size:11px;color:var(--muted);margin-right:8px;">Paciente:</label><select id="mon-sel" onchange="updateMon()" style="background:var(--panel);border:1px solid var(--border);color:var(--white);padding:5px 10px;border-radius:4px;font-family:'Exo 2',sans-serif;font-size:11px;outline:none;"></select></div>
+  <div class="g2">
+    <div class="vc mb12"><div class="fb mb8"><span style="font-size:9px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:2px;">❤️ FREC. CARDÍACA</span><span style="font-family:'Orbitron',monospace;font-size:24px;font-weight:900;color:var(--green);" id="m-hr">72</span><span style="font-size:10px;color:var(--muted);">bpm</span></div><canvas class="wave" id="w-hr"></canvas></div>
+    <div class="vc mb12"><div class="fb mb8"><span style="font-size:9px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:2px;">🫁 SAT. O₂</span><span style="font-family:'Orbitron',monospace;font-size:24px;font-weight:900;color:var(--teal);" id="m-spo2">98</span><span style="font-size:10px;color:var(--muted);">%</span></div><canvas class="wave" id="w-spo2"></canvas></div>
+    <div class="vc"><div class="fb mb8"><span style="font-size:9px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:2px;">🩸 PRESIÓN ART.</span><span style="font-family:'Orbitron',monospace;font-size:22px;font-weight:900;color:var(--yellow);" id="m-bp">120/80</span><span style="font-size:10px;color:var(--muted);">mmHg</span></div><canvas class="wave" id="w-bp"></canvas></div>
+    <div class="vc"><div class="fb mb8"><span style="font-size:9px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:2px;">🌡️ TEMPERATURA</span><span style="font-family:'Orbitron',monospace;font-size:24px;font-weight:900;color:var(--red);" id="m-temp">36.8</span><span style="font-size:10px;color:var(--muted);">°C</span></div><canvas class="wave" id="w-temp"></canvas></div>
+  </div>
+</div>
+<!-- ALIADOS -->
+<div id="sec-aliados" class="sec"><div class="stitle">🏥 HOSPITALES ALIADOS</div><div id="ally-list"></div><div class="card"><div class="card-hdr"><span class="ct">🚑 Traslados</span></div><div class="cb" style="padding:8px;" id="translog"></div></div></div>
+<!-- LOGROS -->
+<div id="sec-logros" class="sec"><div class="stitle">🎖️ VITRINA DE LOGROS</div><div class="ach-g" id="ach-g"></div></div>
+<!-- PERIÓDICO -->
+<div id="sec-periodico" class="sec"><div class="fb mb12"><div class="stitle" style="margin-bottom:0;">📰 PERIÓDICO</div><div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);" id="paper-date">HOY</div></div><div id="news-list"></div></div>
+<!-- CHAT -->
+<div id="sec-chat" class="sec">
+  <div class="stitle">💬 COMUNICACIONES</div>
+  <div class="gm">
+    <div class="card">
+      <div class="card-hdr"><span class="ct">💬 Canal Hospital</span><span style="font-size:9px;color:var(--green);">● EN VIVO</span></div>
+      <div class="cms" id="chat-msgs"></div>
+      <div class="cro" id="chat-opts"></div>
+      <div class="cir"><input class="cin" id="chat-in" placeholder="Mensaje como Dr. Daniel..."/><button class="csend" onclick="sendMsg()">➤</button></div>
+    </div>
+    <div>
+      <div class="card mb12"><div class="card-hdr"><span class="ct">👥 En Turno</span></div><div class="cb" style="padding:8px;max-height:280px;overflow-y:auto;" id="on-duty"></div></div>
+      <div class="card"><div class="card-hdr"><span class="ct">📞 Llamadas</span></div><div class="cb" style="padding:8px;max-height:200px;overflow-y:auto;" id="call-log"></div></div>
+    </div>
+  </div>
+</div>
+<!-- SANDBOX -->
+<div id="sec-sandbox" class="sec">
+  <div class="stitle">🛠️ MODO SANDBOX</div>
+  <div class="g2">
+    <div class="card"><div class="card-hdr"><span class="ct">⚡ Forzar Eventos</span></div><div class="cb">
+      <button class="sandboxbtn" onclick="sbEvent('code_blue')">🚨 Activar Código Azul</button>
+      <button class="sandboxbtn" onclick="sbEvent('mass')">💥 Accidente Masivo (10 pacientes)</button>
+      <button class="sandboxbtn" onclick="sbEvent('birth')">👶 Forzar Nacimiento</button>
+      <button class="sandboxbtn" onclick="sbEvent('newpac')">🏥 Nuevo Paciente Emergencia</button>
+      <button class="sandboxbtn" onclick="sbEvent('blood')">🩸 Sangre O- Crítica</button>
+      <button class="sandboxbtn" onclick="sbEvent('vip')">👑 Paciente VIP</button>
+      <button class="sandboxbtn" onclick="sbEvent('storm')">⛈️ Clima: Tormenta</button>
+      <button class="sandboxbtn" onclick="sbEvent('ally')">🏥 Solicitud Hospital Aliado</button>
+    </div></div>
+    <div class="card"><div class="card-hdr"><span class="ct">⏰ Control de Tiempo</span></div><div class="cb">
+      <button class="sandboxbtn" onclick="simSh('day')">☀️ Simular Turno Diurno</button>
+      <button class="sandboxbtn" onclick="simSh('night')">🌙 Simular Turno Nocturno</button>
+      <button class="sandboxbtn" onclick="simSh('real')">🕐 Volver a Hora Real</button>
+      <div style="margin-top:12px;font-size:10px;color:var(--muted);">Guardado automático en localStorage.</div>
+      <button class="sandboxbtn" onclick="clearSv()" style="border-color:var(--red);color:var(--red);background:rgba(255,45,74,0.08);margin-top:8px;">🗑️ Borrar partida</button>
+    </div></div>
+  </div>
+</div>
+</div><!-- end wrap -->
+<!-- CODE BLUE OVERLAY -->
+<div id="cbo">
+  <div style="font-size:60px;animation:hh .5s infinite;">🚨</div>
+  <div class="cbmsg">⚠ CÓDIGO AZUL ACTIVADO ⚠</div>
+  <div class="cbsub" id="cb-loc">PARO CARDIORRESPIRATORIO — EQUIPO INMEDIATO</div>
+  <div class="cbt" id="cb-team"></div>
+  <div style="display:flex;gap:10px;margin-top:16px;">
+    <button class="cbdis" onclick="deactCB()">✓ DESACTIVAR</button>
+    <button class="cbdis" onclick="cbSupport()" style="border-color:var(--yellow);color:var(--yellow);">+ APOYO EXTRA</button>
+  </div>
+</div>
+<!-- DECISION MODAL -->
+<div id="dec-mo" class="mo"><div class="mbox"><div class="mhdr"><span class="mtitle" id="dec-title">DECISIÓN</span><button onclick="closeDec()" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;">✕</button></div><div class="mbody" id="dec-body"></div></div></div>
+<!-- PATIENT MODAL -->
+<div id="pac-mo" class="mo"><div class="mbox" style="max-width:520px;"><div class="mhdr"><span class="mtitle">📋 EXPEDIENTE</span><button onclick="closePM()" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;">✕</button></div><div class="mbody" id="pac-body"></div></div></div>
+<!-- NOTIF -->
+<div class="nwrap" id="nwrap"></div>
+</body>
+</html>
+
+<script>
+// ========== STATE MANAGEMENT ==========
+const state = {
+  patients: [],
+  staff: [],
+  ambulances: [],
+  blood: { 'O+': 45, 'O-': 8, 'A+': 32, 'A-': 5, 'B+': 28, 'B-': 4, 'AB+': 12, 'AB-': 2 },
+  births: [],
+  messages: [],
+  crisisLog: [],
+  stats: { admissions: 0, discharges: 0, surgeries: 0, births: 0 },
+  alerts: 'yellow',
+  shift: 'day',
+  codeBlue: false,
+  monitorData: { hr: 72, spo2: 98, bp: '120/80', temp: 36.8 }
+};
+
+// ========== INITIALIZATION ==========
+function init() {
+  loadState();
+  genPatients();
+  genStaff();
+  genAmbulances();
+  genBirths();
+  genNews();
+  genAchievements();
+  updateHeader();
+  updateDashboard();
+  updateChat();
+  setInterval(updateClock, 1000);
+  setInterval(randomEvents, 30000);
+  setInterval(updateMonitors, 2000);
+  setInterval(saveState, 5000);
+}
+
+function loadState() {
+  const saved = localStorage.getItem('hospitalState');
+  if (saved) Object.assign(state, JSON.parse(saved));
+}
+
+function saveState() {
+  localStorage.setItem('hospitalState', JSON.stringify(state));
+}
+
+// ========== DATA GENERATION ==========
+function genPatients() {
+  const names = ['Juan', 'María', 'Carlos', 'Rosa', 'Luis', 'Ana', 'Miguel', 'Elena'];
+  const diagnoses = ['Fracturas', 'Apendicitis', 'Hipertensión', 'Neumonía', 'Gastroenteritis', 'Herida', 'Quemadura', 'Intoxicación'];
+  const statuses = ['crítico', 'observación', 'estable'];
+  
+  state.patients = [];
+  for (let i = 0; i < 8; i++) {
+    state.patients.push({
+      id: 'P' + (1000 + i),
+      name: names[Math.floor(Math.random() * names.length)],
+      age: Math.floor(Math.random() * 60) + 20,
+      diagnosis: diagnoses[Math.floor(Math.random() * diagnoses.length)],
+      status: statuses[Math.floor(Math.random() * statuses.length)],
+      room: 'S-' + (100 + i),
+      doctor: 'Dr. García',
+      mood: ['😊', '😐', '😞'][Math.floor(Math.random() * 3)]
+    });
+  }
+}
+
+function genStaff() {
+  state.staff = [
+    { name: 'Dr. Shaun Murphy', role: 'Cardiólogo', area: 'Cardiología', status: 'active' },
+    { name: 'Dra. Elena Mendoza', role: 'Obstetriz', area: 'Maternidad', status: 'active' },
+    { name: 'Dr. Gabriel López', role: 'Cirujano', area: 'Quirófano', status: 'active' },
+    { name: 'Enf. Patricia Lima', role: 'Enfermera', area: 'UCI', status: 'active' },
+    { name: 'Dr. Carlos Nieto', role: 'Pediatra', area: 'Pediatría', status: 'active' }
+  ];
+}
+
+function genAmbulances() {
+  state.ambulances = [
+    { id: 'AMB-01', status: 'en_ruta', location: 'Centro', crew: 'Eduardo' },
+    { id: 'AMB-02', status: 'disponible', location: 'Hospital', crew: 'Sofía' },
+    { id: 'AMB-03', status: 'en_ruta', location: 'Zona Norte', crew: 'Roberto' },
+    { id: 'AMB-04', status: 'disponible', location: 'Hospital', crew: 'Lucía' },
+    { id: 'AMB-05', status: 'mantenimiento', location: 'Garaje', crew: 'N/A' },
+    { id: 'AMB-06', status: 'disponible', location: 'Hospital', crew: 'Héctor' }
+  ];
+}
+
+function genBirths() {
+  state.births = [
+    { id: 'B001', mother: 'Ana García', date: 'Hoy 09:30', gender: 'F', weight: '3.2 kg', status: '✓' },
+    { id: 'B002', mother: 'Rosa López', date: 'Hoy 14:15', gender: 'M', weight: '3.5 kg', status: '✓' }
+  ];
+}
+
+function genNews() {
+  state.news = [
+    { title: 'Nueva ala de pediatría inaugurada', icon: '🏗️', time: 'Hace 3h' },
+    { title: 'Equipo médico gana competencia nacional', icon: '🏆', time: 'Hace 5h' },
+    { title: 'Donación de equipos de laboratorio', icon: '🔬', time: 'Hace 8h' },
+    { title: 'Programa de capacitación de enfermería', icon: '📚', time: 'Hace 1d' }
+  ];
+}
+
+function genAchievements() {
+  state.achievements = [
+    { icon: '🏥', name: 'Primera Cirugía', desc: '1 cirugía completada', unlocked: true, date: '05/01/2024' },
+    { icon: '👶', name: 'Milagro de Vida', desc: '5 nacimientos asistidos', unlocked: true, date: '15/03/2024' },
+    { icon: '💓', name: 'Cardiología Experto', desc: '10 casos cardíacos tratados', unlocked: false },
+    { icon: '🎖️', name: 'Héroe del Hospital', desc: '50 pacientes salvados', unlocked: false },
+    { icon: '⭐', name: 'Perfeccionista', desc: '100% satisfacción de pacientes', unlocked: false },
+    { icon: '🔥', name: 'Crisis Manager', desc: 'Sobrevivir 5 códigos azules', unlocked: false }
+  ];
+}
+
+// ========== UI UPDATES ==========
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clk').textContent = now.toLocaleTimeString('es-ES');
+  document.getElementById('ddisp').textContent = now.toLocaleDateString('es-ES', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase();
+}
+
+function updateHeader() {
+  const shift = state.shift === 'day' ? '☀️ TURNO DIURNO' : '🌙 TURNO NOCTURNO';
+  document.getElementById('shift-badge').textContent = shift;
+  document.getElementById('shift-badge').className = 'shift-b ' + (state.shift === 'day' ? 'shift-day' : 'shift-night');
+  
+  const critical = state.patients.filter(p => p.status === 'crítico').length;
+  const alertMap = { 0: ['verde', '✓ CÓDIGO VERDE'], 1: ['yellow', '⚠ ALERTA AMARILLA'], 2: ['red', '🔴 ALERTA ROJA'] };
+  const [alertBg, alertTxt] = critical > 1 ? alertMap[2] : critical > 0 ? alertMap[1] : alertMap[0];
+  document.getElementById('alt-txt').textContent = alertTxt;
+  
+  const dots = document.querySelectorAll('.adot');
+  dots[0].className = 'adot ' + (critical > 1 ? 'r' : critical > 0 ? 'a' : 'v');
+}
+
+function updateDashboard() {
+  const critical = state.patients.filter(p => p.status === 'crítico');
+  document.getElementById('d-pac').textContent = state.patients.length;
+  document.getElementById('d-crit').textContent = critical.length;
+  document.getElementById('d-beds').textContent = 120 - state.patients.length;
+  
+  let dashCT = '';
+  critical.slice(0, 3).forEach(p => {
+    dashCT += `<tr><td>${p.name}</td><td>${p.diagnosis}</td><td><span class="sb critico">CRÍTICO</span></td><td>${p.room}</td><td><button class="btn bt" onclick="openPatient('${p.id}')">✎</button></td></tr>`;
+  });
+  document.getElementById('dash-ct').innerHTML = dashCT;
+  
+  let occ = '';
+  ['Cardiología', 'Cirugía', 'Pediatría', 'UCI'].forEach(dept => {
+    const count = Math.floor(Math.random() * 20) + 5;
+    occ += `<div class="fb mb8"><span>${dept}</span><span style="color:var(--teal);">${count}/30</span></div><div class="pb"><div class="pf t" style="width:${count*3.33}%;"></div></div>`;
+  });
+  document.getElementById('occ-bars').innerHTML = occ;
+  
+  let ambs = '';
+  state.ambulances.forEach(a => {
+    const icon = a.status === 'en_ruta' ? '🚨' : a.status === 'disponible' ? '✓' : '🔧';
+    ambs += `<div class="ni"><div class="nt">${a.id}</div><div class="ntx">${icon} ${a.status} — ${a.location}</div></div>`;
+  });
+  document.getElementById('dash-ambs').innerHTML = ambs;
+  
+  let blood = '';
+  Object.entries(state.blood).forEach(([type, units]) => {
+    const status = units < 10 ? 'critical' : units < 20 ? 'warning' : 'ok';
+    blood += `<div class="ni"><div class="nt">${type}</div><div class="ntx">${units} U <span style="color:${units < 10 ? 'var(--red)' : units < 20 ? 'var(--yellow)' : 'var(--green)'}">${units < 10 ? '⚠️ Crítico' : units < 20 ? '⚡ Bajo' : '✓'}</span></div></div>`;
+  });
+  document.getElementById('dash-blood').innerHTML = blood;
+  
+  let births = '';
+  state.births.forEach(b => {
+    births += `<div class="ni"><div class="nt">${b.gender}</div><div class="ntx">${b.mother} — ${b.weight} ${b.status}</div></div>`;
+  });
+  document.getElementById('dash-births').innerHTML = births;
+}
+
+function updateChat() {
+  let html = '';
+  state.messages.forEach(m => {
+    const align = m.sender === 'Dr. Daniel' ? 'dan' : '';
+    html += `<div class="cmsg ${align}"><div class="cav">${m.sender[0]}</div><div><div class="csen">${m.sender}</div><div class="cbub"><div class="ctxt">${m.text}</div><div class="ctm">${m.time}</div></div></div></div>`;
+  });
+  document.getElementById('chat-msgs').innerHTML = html;
+  document.getElementById('chat-msgs').scrollTop = document.getElementById('chat-msgs').scrollHeight;
+  
+  let duty = '';
+  state.staff.forEach(s => {
+    duty += `<div class="sr"><div class="sav">${s.name[0]}</div><div><div class="sn">${s.name}</div><div class="sa">${s.role}</div></div><div class="sdd sd-a"></div></div>`;
+  });
+  document.getElementById('on-duty').innerHTML = duty;
+}
+
+function showSec(sec, btn) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + sec).classList.add('active');
+  
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  if (sec === 'pacientes') updatePacientes();
+  if (sec === 'personal') updatePersonal();
+  if (sec === 'ambulancias') updateAmbulances();
+  if (sec === 'maternidad') updateMaternidad();
+  if (sec === 'sangre') updateBancoSangre();
+  if (sec === 'aliados') updateAliados();
+  if (sec === 'logros') updateLogros();
+  if (sec === 'periodico') updatePeriodico();
+  if (sec === 'monitores') updateMonitorSelect();
+}
+
+function updatePacientes() {
+  let html = '';
+  state.patients.forEach(p => {
+    const statusClass = p.status === 'crítico' ? 'critico' : p.status === 'observación' ? 'observacion' : 'estable';
+    html += `<tr><td>${p.id}</td><td>${p.name}</td><td>${p.age}</td><td>${p.diagnosis}</td><td><span class="sb ${statusClass}">${p.status.toUpperCase()}</span></td><td>${p.room}</td><td>${p.doctor}</td><td>${p.mood}</td><td><button class="btn bt" onclick="openPatient('${p.id}')">Ver</button></td></tr>`;
+  });
+  document.getElementById('full-pact').innerHTML = html;
+  document.getElementById('total-pac').textContent = state.patients.length;
+}
+
+function updatePersonal() {
+  let html = '';
+  state.staff.forEach(s => {
+    html += `<div class="scard"><div class="sname">${s.name}</div><div class="sdet">👔 ${s.role}<br>🏢 ${s.area}<br><span class="stg feliz">● Activo</span></div></div>`;
+  });
+  document.getElementById('staff-full').innerHTML = html;
+  
+  const emp = state.staff[0];
+  document.getElementById('emp-panel').innerHTML = `<div style="text-align:center;"><div style="font-size:24px;margin-bottom:8px;">🏆</div><div style="color:var(--white);font-weight:700;margin-bottom:4px;">${emp.name}</div><div style="font-size:10px;color:var(--muted);">${emp.role}</div><div class="stg feliz" style="justify-content:center;margin-top:8px;">+92 Reputación</div></div>`;
+}
+
+function updateAmbulances() {
+  let html = '';
+  state.ambulances.forEach(a => {
+    const icon = a.status === 'en_ruta' ? '🚨' : a.status === 'disponible' ? '✓' : '🔧';
+    html += `<div class="card"><div class="card-hdr"><span class="ct">${a.id}</span><span>${icon}</span></div><div class="cb"><div class="fb mb8"><span>Conductor</span><span>${a.crew}</span></div><div class="fb mb8"><span>Ubicación</span><span>${a.location}</span></div><div><span>Estado</span><span style="color:${a.status === 'disponible' ? 'var(--green)' : 'var(--yellow)'};">${a.status.toUpperCase()}</span></div></div></div>`;
+  });
+  document.getElementById('amb-full').innerHTML = html;
+}
+
+function updateMaternidad() {
+  let html = '';
+  state.births.forEach(b => {
+    html += `<div class="ni"><div class="nt">${b.gender}</div><div class="ntx"><strong>${b.mother}</strong> — ${b.date}<br>${b.weight} | ${b.status}</div></div>`;
+  });
+  document.getElementById('birth-list').innerHTML = html;
+  document.getElementById('birth-c').textContent = state.births.length;
+}
+
+function updateBancoSangre() {
+  let html = '';
+  Object.entries(state.blood).forEach(([type, units]) => {
+    html += `<div class="bcard"><div class="btype">${type}</div><div class="bunits">${units}U</div><div style="font-size:10px;color:${units < 10 ? 'var(--red)' : 'var(--green)'}">${units < 10 ? '⚠️ Crítico' : '✓'}</div></div>`;
+  });
+  document.getElementById('blood-g').innerHTML = html;
+}
+
+function updateAliados() {
+  const allies = [
+    { name: 'Hospital Central', distance: '5km', capacity: '450 camas' },
+    { name: 'Clínica Privada', distance: '8km', capacity: '200 camas' },
+    { name: 'Hospital Regional', distance: '12km', capacity: '600 camas' }
+  ];
+  
+  let html = '';
+  allies.forEach(a => {
+    html += `<div class="card mb12"><div class="card-hdr"><span class="ct">${a.name}</span></div><div class="cb"><div class="fb mb8"><span>Distancia</span><span>${a.distance}</span></div><div><span>Capacidad</span><span>${a.capacity}</span></div></div></div>`;
+  });
+  document.getElementById('ally-list').innerHTML = html;
+}
+
+function updateLogros() {
+  let html = '';
+  state.achievements.forEach(a => {
+    const locked = a.unlocked ? '' : 'lk';
+    html += `<div class="ach ${locked}"><div class="ai">${a.icon}</div><div class="an">${a.name}</div><div class="ad">${a.desc}</div>${a.unlocked ? `<div class="adate">${a.date}</div>` : ''}</div>`;
+  });
+  document.getElementById('ach-g').innerHTML = html;
+}
+
+function updatePeriodico() {
+  let html = '';
+  state.news.forEach(n => {
+    html += `<div class="ni"><div class="nt">${n.icon}</div><div class="ntx"><strong>${n.title}</strong><br><span style="font-size:9px;color:var(--muted);">${n.time}</span></div></div>`;
+  });
+  document.getElementById('news-list').innerHTML = html;
+}
+
+function updateMonitorSelect() {
+  let html = '';
+  state.patients.forEach(p => {
+    html += `<option value="${p.id}">${p.name} (${p.id})</option>`;
+  });
+  document.getElementById('mon-sel').innerHTML = html;
+  updateMon();
+}
+
+function updateMon() {
+  const val = Math.random();
+  const hr = Math.floor(60 + val * 40);
+  const spo2 = Math.floor(95 + val * 5);
+  const bp = Math.floor(110 + val * 30) + '/' + Math.floor(70 + val * 20);
+  const temp = (36 + val * 2).toFixed(1);
+  
+  document.getElementById('m-hr').textContent = hr;
+  document.getElementById('m-spo2').textContent = spo2;
+  document.getElementById('m-bp').textContent = bp;
+  document.getElementById('m-temp').textContent = temp;
+  
+  drawWave('w-hr', hr, 80, 120);
+  drawWave('w-spo2', spo2, 90, 100);
+  drawWave('w-bp', parseInt(bp), 100, 150);
+  drawWave('w-temp', temp * 10, 350, 400);
+}
+
+function updateMonitors() {
+  updateMon();
+}
+
+function drawWave(canvasId, value, min, max) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = '#00c8d4';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  
+  for (let x = 0; x < canvas.width; x++) {
+    const y = canvas.height / 2 + Math.sin(x * 0.1 + Date.now() / 100) * (value / 100) * 10;
+    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+}
+
+// ========== FUNCTIONS ==========
+function sendMsg() {
+  const inp = document.getElementById('chat-in');
+  const text = inp.value.trim();
+  if (!text) return;
+  
+  state.messages.push({ sender: 'Dr. Daniel', text, time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) });
+  inp.value = '';
+  updateChat();
+}
+
+function openPatient(id) {
+  const p = state.patients.find(x => x.id === id);
+  if (!p) return;
+  
+  const html = `<div class="scard"><div class="sname">📋 ${p.name}</div><div class="sdet"><strong>ID:</strong> ${p.id}<br><strong>Edad:</strong> ${p.age} años<br><strong>Diagnóstico:</strong> ${p.diagnosis}<br><strong>Sala:</strong> ${p.room}<br><strong>Doctor:</strong> ${p.doctor}<br><span class="stg ${p.status === 'crítico' ? 'triste' : 'feliz'}" style="margin-top:8px;">${p.status.toUpperCase()}</span></div></div>`;
+  document.getElementById('pac-body').innerHTML = html;
+  document.getElementById('pac-mo').classList.add('active');
+}
+
+function closePM() {
+  document.getElementById('pac-mo').classList.remove('active');
+}
+
+function closeDec() {
+  document.getElementById('dec-mo').classList.remove('active');
+}
+
+function sbEvent(evt) {
+  switch(evt) {
+    case 'code_blue':
+      activateCB();
+      break;
+    case 'mass':
+      for (let i = 0; i < 10; i++) genPatients();
+      updateHeader();
+      updateDashboard();
+      notify('💥 10 pacientes ingresados por accidente masivo', 'urgent');
+      break;
+    case 'birth':
+      state.births.push({ id: 'B' + Date.now(), mother: 'Paciente Gen', date: new Date().toLocaleTimeString(), gender: Math.random() > 0.5 ? 'M' : 'F', weight: (2 + Math.random() * 2).toFixed(1) + ' kg', status: '✓' });
+      updateMaternidad();
+      notify('👶 Nuevo nacimiento registrado', 'success');
+      break;
+    case 'newpac':
+      genPatients();
+      state.patients[0].status = 'crítico';
+      updateHeader();
+      updateDashboard();
+      updatePacientes();
+      notify('🚑 Nuevo paciente de emergencia', 'urgent');
+      break;
+    case 'blood':
+      state.blood['O-'] = 3;
+      updateBancoSangre();
+      notify('🩸 Sangre O- crítica', 'urgent');
+      break;
+    case 'vip':
+      const vip = { ...state.patients[0], name: 'Paciente VIP' };
+      state.patients.unshift(vip);
+      updatePacientes();
+      notify('👑 Paciente VIP ingresado', 'warn');
+      break;
+    case 'storm':
+      document.getElementById('wx-badge').textContent = '⛈️ Tormenta';
+      setTimeout(() => document.getElementById('wx-badge').textContent = '☀️ Despejado', 10000);
+      notify('⛈️ Advertencia climática', 'warn');
+      break;
+    case 'ally':
+      notify('🏥 Hospital aliado solicita consulta', 'warn');
+      break;
+  }
+}
+
+function simSh(shift) {
+  if (shift === 'day') {
+    state.shift = 'day';
+    document.getElementById('shift-badge').textContent = '☀️ TURNO DIURNO';
+  } else if (shift === 'night') {
+    state.shift = 'night';
+    document.getElementById('shift-badge').textContent = '🌙 TURNO NOCTURNO';
+  } else {
+    // Real time - already handled by updateClock
+  }
+  updateHeader();
+}
+
+function clearSv() {
+  if (confirm('¿Borrar toda la partida?')) {
+    localStorage.removeItem('hospitalState');
+    location.reload();
+  }
+}
+
+function activateCB() {
+  state.codeBlue = true;
+  document.getElementById('cbo').classList.add('active');
+  let team = '';
+  for (let i = 0; i < 3; i++) {
+    team += `<div class="cbm">✓ ${state.staff[i].name}</div>`;
+  }
+  document.getElementById('cb-team').innerHTML = team;
+  notify('🚨 CÓDIGO AZUL ACTIVADO', 'urgent');
+}
+
+function deactCB() {
+  state.codeBlue = false;
+  document.getElementById('cbo').classList.remove('active');
+  notify('✓ Código Azul desactivado', 'success');
+}
+
+function cbSupport() {
+  notify('+ Apoyo extra enviado a ubicación', 'success');
+}
+
+function notify(text, type = 'info') {
+  const div = document.createElement('div');
+  div.className = 'notif ' + type;
+  div.innerHTML = `<div class="ntit">${text}</div>`;
+  document.getElementById('nwrap').appendChild(div);
+  setTimeout(() => div.remove(), 5000);
+}
+
+function randomEvents() {
+  if (Math.random() > 0.7) {
+    const msg = ['Paciente estable', 'Cirugía completada', 'Nuevo ingreso', 'Alta médica'][Math.floor(Math.random() * 4)];
+    state.crisisLog.push({ time: new Date().toLocaleTimeString(), msg });
+    if (state.crisisLog.length > 10) state.crisisLog.shift();
+  }
+}
+
+// ========== INIT ==========
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
